@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 17th Birthday, Rajasree! 🌷✨</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #fdf4ff 45%, #eff6ff 100%);
+      --primary: #fb7185;
+      --secondary: #c084fc;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text-main: #374151;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating background icons */
+    .floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-item {
+      position: absolute;
+      bottom: -40px;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-115vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    /* Top badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffe4e6;
+      color: #e11d48;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.15);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Fredoka', cursive;
+      font-size: 3.3rem;
+      line-height: 1.2;
+      color: #e11d48;
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 0px #fff;
+    }
+
+    .name-gradient {
+      background: linear-gradient(45deg, #f43f5e, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    /* Action Buttons */
+    .actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+
+    .btn {
+      border: none;
+      padding: 13px 28px;
+      font-size: 1.05rem;
+      font-family: 'Fredoka', sans-serif;
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-party {
+      background: linear-gradient(45deg, #f43f5e, #ec4899, #a855f7);
+      color: white;
+      box-shadow: 0 8px 24px rgba(244, 63, 94, 0.35);
+    }
+
+    .btn-party:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 28px rgba(244, 63, 94, 0.45);
+    }
+
+    .btn-music {
+      background: white;
+      color: #9333ea;
+      border: 1.5px solid #f3e8ff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-music:hover {
+      background: #faf5ff;
+      transform: translateY(-2px);
+    }
+
+    /* Polaroids */
+    .gallery-title {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.1rem;
+      color: #7c3aed;
+      margin-bottom: 25px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 14px 14px 22px 14px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .polaroid:nth-child(1) { transform: rotate(-2.5deg); }
+    .polaroid:nth-child(2) { transform: rotate(1.5deg); }
+    .polaroid:nth-child(3) { transform: rotate(-1.5deg); }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+      box-shadow: 0 16px 35px rgba(244, 63, 94, 0.18);
+      z-index: 2;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .polaroid p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      color: #4b5563;
+      margin-top: 12px;
+    }
+
+    /* Tulip Flower Bed Section */
+    .tulip-garden-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px 30px;
+      border-radius: 28px;
+      border: 2px dashed #f472b6;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Animated tulips along the card */
+    .tulip-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tulip-svg {
+      width: 44px;
+      height: 60px;
+      transition: transform 0.3s ease;
+      transform-origin: bottom center;
+      animation: gentleSway 3s ease-in-out infinite alternate;
+    }
+
+    .tulip-svg:nth-child(2) { animation-delay: 0.5s; }
+    .tulip-svg:nth-child(3) { animation-delay: 1s; }
+    .tulip-svg:nth-child(4) { animation-delay: 1.5s; }
+    .tulip-svg:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes gentleSway {
+      0% { transform: rotate(-4deg); }
+      100% { transform: rotate(4deg); }
+    }
+
+    .tulip-svg:hover {
+      transform: scale(1.2) translateY(-6px);
+    }
+
+    .letter-header {
+      font-family: 'Fredoka', cursive;
+      font-size: 2rem;
+      color: #db2777;
+      margin-bottom: 16px;
+    }
+
+    .letter-content {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      color: #4b5563;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .letter-signature {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: #9333ea;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.3rem; }
+      .tulip-row { gap: 10px; }
+      .tulip-svg { width: 34px; height: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Tulips & Hearts in background -->
+  <div class="floating-container" id="floatingBg"></div>
+
+  <div class="container">
+    
+    <!-- Hero Section -->
+    <div class="badge">
+      <span>🌷</span> Sweet 17 Edition <span>🌷</span>
+    </div>
+    
+    <h1>Happy Birthday,<br><span class="name-gradient">Rajasree!</span> 🎂</h1>
+    <p class="subtitle">May your 17th year bloom as beautifully as a garden of tulips ✨</p>
+
+    <!-- Controls -->
+    <div class="actions-bar">
+      <button class="btn btn-party" onclick="celebrateParty()">
+        <span>🎉</span> Celebrate Rajasree!
+      </button>
+
+      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">▶️</span> <span id="musicText">Play Birthday Song</span>
+      </button>
+    </div>
+
+    <!-- Happy Birthday Instrumental Audio Stream -->
+    <audio id="birthdayAudio" loop preload="auto" src="https://ia800108.us.archive.org/30/items/HappyBirthdayInstrumental/HappyBirthdayInstrumental.mp3"></audio>
+
+    <!-- Photo Memories -->
+    <h2 class="gallery-title">Memories With Rajasree 📸</h2>
+    <div class="gallery-grid">
+      <div class="polaroid">
+        <!-- Swap src with Rajasree's photo -->
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600" alt="Rajasree memory 1">
+        <p>Always lighting up the room 🌷</p>
+      </div>
+
+      <div class="polaroid">
+        <!-- Swap src with Rajasree's photo -->
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600" alt="Rajasree memory 2">
+        <p>Partner in crime forever 🍦</p>
+      </div>
+
+      <div class="polaroid">
+        <!-- Swap src with Rajasree's photo -->
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600" alt="Rajasree memory 3">
+        <p>Sweet 17 & blooming ✨</p>
+      </div>
+    </div>
+
+    <!-- Tulip Decorated Birthday Message -->
+    <div class="tulip-garden-card">
+      
+      <!-- Row of cute SVG Tulips -->
+      <div class="tulip-row">
+        <!-- Tulip 1 (Pink) -->
+        <svg class="tulip-svg" viewBox="0 0 100 130">
+          <path d="M50 65 Q48 100 50 125" stroke="#65a30d" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M50 95 Q30 85 25 70 Q38 85 50 95" fill="#84cc16"/>
+          <path d="M50 105 Q70 95 75 80 Q62 95 50 105" fill="#84cc16"/>
+          <path d="M50 15 C30 15 25 55 50 65 C75 55 70 15 50 15 Z" fill="#fb7185"/>
+          <path d="M50 15 C45 35 45 45 50 65 C40 50 35 30 50 15 Z" fill="#f43f5e"/>
+        </svg>
+
+        <!-- Tulip 2 (Purple) -->
+        <svg class="tulip-svg" viewBox="0 0 100 130">
+          <path d="M50 65 Q52 100 50 125" stroke="#65a30d" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M50 90 Q30 80 22 65 Q38 80 50 90" fill="#84cc16"/>
+          <path d="M50 15 C30 15 25 55 50 65 C75 55 70 15 50 15 Z" fill="#c084fc"/>
+          <path d="M50 15 C45 35 45 45 50 65 C40 50 35 30 50 15 Z" fill="#a855f7"/>
+        </svg>
+
+        <!-- Tulip 3 (Soft Coral Pink) -->
+        <svg class="tulip-svg" viewBox="0 0 100 130">
+          <path d="M50 65 Q48 100 50 125" stroke="#65a30d" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M50 100 Q70 90 76 75 Q62 90 50 100" fill="#84cc16"/>
+          <path d="M50 15 C30 15 25 55 50 65 C75 55 70 15 50 15 Z" fill="#fda4af"/>
+          <path d="M50 15 C45 35 45 45 50 65 C40 50 35 30 50 15 Z" fill="#f43f5e"/>
+        </svg>
+
+        <!-- Tulip 4 (Purple) -->
+        <svg class="tulip-svg" viewBox="0 0 100 130">
+          <path d="M50 65 Q48 100 50 125" stroke="#65a30d" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M50 95 Q30 85 25 70 Q38 85 50 95" fill="#84cc16"/>
+          <path d="M50 15 C30 15 25 55 50 65 C75 55 70 15 50 15 Z" fill="#c084fc"/>
+          <path d="M50 15 C45 35 45 45 50 65 C40 50 35 30 50 15 Z" fill="#a855f7"/>
+        </svg>
+
+        <!-- Tulip 5 (Pink) -->
+        <svg class="tulip-svg" viewBox="0 0 100 130">
+          <path d="M50 65 Q52 100 50 125" stroke="#65a30d" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M50 105 Q70 95 75 80 Q62 95 50 105" fill="#84cc16"/>
+          <path d="M50 15 C30 15 25 55 50 65 C75 55 70 15 50 15 Z" fill="#fb7185"/>
+          <path d="M50 15 C45 35 45 45 50 65 C40 50 35 30 50 15 Z" fill="#f43f5e"/>
+        </svg>
+      </div>
+
+      <h3 class="letter-header">Dearest Rajasree 💕</h3>
+      <p class="letter-content">
+        Happy 17th Birthday! 🎉 Watching you grow up into such an intelligent, wonderful, and kind person has been one of the biggest blessings.<br><br>
+        May your 17th year be full of warmth, boundless smiles, good grades, lots of delicious food, and wonderful dreams coming true. Just like tulips bring color and fresh life wherever they bloom, you bring so much joy into all our lives. Keep shining bright!
+      </p>
+      <div class="letter-signature">
+        Always in your corner,<br>
+        Your Brother 🌷
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Confetti cannon
+    function shootConfetti() {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Audio controls
+    const birthdayAudio = document.getElementById('birthdayAudio');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicText = document.getElementById('musicText');
+    let isPlaying = false;
+
+    function celebrateParty() {
+      shootConfetti();
+      if (!isPlaying) {
+        startMusic();
+      }
+    }
+
+    function startMusic() {
+      birthdayAudio.play().then(() => {
+        isPlaying = true;
+        musicIcon.innerText = '⏸️';
+        musicText.innerText = 'Pause Song';
+      }).catch(err => {
+        console.log("Audio playback waiting for interaction:", err);
+      });
+    }
+
+    function toggleMusic() {
+      if (isPlaying) {
+        birthdayAudio.pause();
+        isPlaying = false;
+        musicIcon.innerText = '▶️';
+        musicText.innerText = 'Play Birthday Song';
+      } else {
+        startMusic();
+      }
+    }
+
+    // Background floating elements (Tulips, Hearts, Sparkles)
+    const floatingBg = document.getElementById('floatingBg');
+    const cuteSymbols = ['🌷', '🌸', '✨', '💖', '🌷', '🎀'];
+
+    function spawnFloatingItem() {
+      const el = document.createElement('div');
+      el.classList.add('floating-item');
+      el.innerText = cuteSymbols[Math.floor(Math.random() * cuteSymbols.length)];
+      el.style.left = Math.random() * 95 + 'vw';
+      el.style.animationDuration = Math.random() * 4 + 7 + 's';
+      el.style.fontSize = Math.random() * 12 + 18 + 'px';
+      floatingBg.appendChild(el);
+
+      setTimeout(() => {
+        el.remove();
+      }, 10000);
+    }
+    setInterval(spawnFloatingItem, 700);
+
+    // Initial confetti burst on window load
+    window.addEventListener('load', () => {
+      setTimeout(shootConfetti, 400);
+    });
+  </script>
+</body>
+</html>
