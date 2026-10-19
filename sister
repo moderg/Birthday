@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Happy 17th Birthday, Rajasree! 🌷✨</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fredoka:wght@400;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -16,16 +16,18 @@
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #fdf4ff 45%, #eff6ff 100%);
-      --primary: #fb7185;
-      --secondary: #c084fc;
-      --card-bg: rgba(255, 255, 255, 0.9);
+      --primary: #f43f5e;
+      --secondary: #a855f7;
+      --card-bg: rgba(255, 255, 255, 0.92);
       --text-main: #374151;
+      --text-sub: #6b7280;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -40,10 +42,7 @@
     /* Floating background icons */
     .floating-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
@@ -70,172 +69,223 @@
       }
     }
 
-    /* Main Container */
+    /* Main Container with fluid responsive bounds */
     .container {
+      width: 100%;
       max-width: 900px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: clamp(24px, 5vw, 50px) clamp(16px, 4vw, 24px) 100px;
       position: relative;
       z-index: 1;
       text-align: center;
     }
 
-    /* Top badge */
+    /* Hero section */
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: #ffe4e6;
       color: #e11d48;
-      padding: 8px 20px;
+      padding: 6px 18px;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: clamp(0.8rem, 2.5vw, 0.95rem);
       letter-spacing: 0.8px;
       text-transform: uppercase;
       box-shadow: 0 4px 14px rgba(244, 63, 94, 0.15);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     h1 {
       font-family: 'Fredoka', cursive;
-      font-size: 3.3rem;
-      line-height: 1.2;
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      line-height: 1.18;
       color: #e11d48;
       margin-bottom: 12px;
       text-shadow: 2px 2px 0px #fff;
     }
 
     .name-gradient {
-      background: linear-gradient(45deg, #f43f5e, #a855f7);
+      background: linear-gradient(45deg, #f43f5e, #effd24);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      color: #6b7280;
-      margin-bottom: 28px;
-    }
-
-    /* Action Buttons */
-    .actions-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 50px;
-    }
-
-    .btn {
-      border: none;
-      padding: 13px 28px;
-      font-size: 1.05rem;
-      font-family: 'Fredoka', sans-serif;
-      border-radius: 50px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--text-sub);
+      margin-bottom: 24px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .btn-party {
+      border: none;
       background: linear-gradient(45deg, #f43f5e, #ec4899, #a855f7);
       color: white;
+      padding: clamp(12px, 3vw, 15px) clamp(24px, 5vw, 36px);
+      font-size: clamp(1rem, 2.8vw, 1.15rem);
+      font-family: 'Fredoka', sans-serif;
+      border-radius: 50px;
+      cursor: pointer;
       box-shadow: 0 8px 24px rgba(244, 63, 94, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .btn-party:hover {
-      transform: translateY(-3px) scale(1.04);
+    .btn-party:hover, .btn-party:active {
+      transform: translateY(-2px) scale(1.03);
       box-shadow: 0 12px 28px rgba(244, 63, 94, 0.45);
     }
 
-    .btn-music {
-      background: white;
-      color: #9333ea;
-      border: 1.5px solid #f3e8ff;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .btn-music:hover {
-      background: #faf5ff;
-      transform: translateY(-2px);
-    }
-
-    /* Polaroids */
-    .gallery-title {
+    /* Section Titles */
+    .section-title {
       font-family: 'Fredoka', cursive;
-      font-size: 2.1rem;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
       color: #7c3aed;
-      margin-bottom: 25px;
+      margin: clamp(45px, 8vw, 65px) 0 20px;
     }
 
+    /* Polaroid Gallery */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
-      margin-bottom: 60px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: clamp(18px, 4vw, 26px);
+      margin-bottom: 40px;
     }
 
     .polaroid {
       background: white;
-      padding: 14px 14px 22px 14px;
+      padding: 12px 12px 20px 12px;
       border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
 
-    .polaroid:nth-child(1) { transform: rotate(-2.5deg); }
+    .polaroid:nth-child(1) { transform: rotate(-2deg); }
     .polaroid:nth-child(2) { transform: rotate(1.5deg); }
     .polaroid:nth-child(3) { transform: rotate(-1.5deg); }
 
-    .polaroid:hover {
-      transform: scale(1.05) rotate(0deg);
-      box-shadow: 0 16px 35px rgba(244, 63, 94, 0.18);
+    .polaroid:hover, .polaroid:active {
+      transform: scale(1.03) rotate(0deg);
+      box-shadow: 0 14px 30px rgba(244, 63, 94, 0.16);
       z-index: 2;
     }
 
     .polaroid img {
       width: 100%;
-      height: 250px;
+      height: clamp(220px, 35vw, 270px);
       object-fit: cover;
       border-radius: 10px;
+      display: block;
     }
 
     .polaroid p {
       font-family: 'Caveat', cursive;
-      font-size: 1.55rem;
+      font-size: clamp(1.35rem, 4vw, 1.6rem);
       color: #4b5563;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
-    /* Tulip Flower Bed Section */
+    /* Interactive "Sister Mood Check" Feature */
+    .mood-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: clamp(22px, 5vw, 32px) clamp(16px, 4vw, 24px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
+      border: 2px dashed #f472b6;
+      max-width: 680px;
+      margin: 0 auto clamp(40px, 7vw, 60px);
+    }
+
+    .mood-title {
+      font-family: 'Fredoka', cursive;
+      font-size: clamp(1.3rem, 4vw, 1.65rem);
+      color: #db2777;
+      margin-bottom: 8px;
+    }
+
+    .mood-subtitle {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      color: var(--text-sub);
+      margin-bottom: 20px;
+    }
+
+    .mood-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .mood-btn {
+      background: white;
+      border: 1.5px solid #fce7f3;
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      font-weight: 700;
+      color: #be185d;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mood-btn:hover, .mood-btn.active {
+      background: #fdf2f8;
+      border-color: #f43f5e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.15);
+    }
+
+    .mood-display-box {
+      min-height: 85px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(0.95rem, 2.8vw, 1.08rem);
+      color: #4b5563;
+      line-height: 1.6;
+      border: 1px solid #fbcfe8;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Tulip Card & Message */
     .tulip-garden-card {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
-      padding: 40px 30px 30px;
+      padding: clamp(30px, 6vw, 44px) clamp(18px, 4vw, 32px);
       border-radius: 28px;
       border: 2px dashed #f472b6;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
       max-width: 680px;
       margin: 0 auto;
-      position: relative;
     }
 
-    /* Animated tulips along the card */
     .tulip-row {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: clamp(8px, 2.5vw, 20px);
       margin-bottom: 20px;
     }
 
     .tulip-svg {
-      width: 44px;
-      height: 60px;
+      width: clamp(32px, 8vw, 44px);
+      height: clamp(48px, 12vw, 60px);
       transition: transform 0.3s ease;
       transform-origin: bottom center;
       animation: gentleSway 3s ease-in-out infinite alternate;
@@ -251,43 +301,70 @@
       100% { transform: rotate(4deg); }
     }
 
-    .tulip-svg:hover {
-      transform: scale(1.2) translateY(-6px);
-    }
-
     .letter-header {
       font-family: 'Fredoka', cursive;
-      font-size: 2rem;
+      font-size: clamp(1.6rem, 5vw, 2.1rem);
       color: #db2777;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .letter-content {
-      font-size: 1.15rem;
-      line-height: 1.85;
+      font-size: clamp(1rem, 3vw, 1.14rem);
+      line-height: 1.8;
       color: #4b5563;
       text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .letter-signature {
       font-family: 'Caveat', cursive;
-      font-size: 2rem;
+      font-size: clamp(1.7rem, 5vw, 2.2rem);
       color: #9333ea;
       text-align: right;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.3rem; }
-      .tulip-row { gap: 10px; }
-      .tulip-svg { width: 34px; height: 50px; }
+    /* Mobile Sticky Audio Controller */
+    .sticky-music-bar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .btn-music-pill {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      color: #9333ea;
+      border: 1.5px solid #e9d5ff;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 8px 20px rgba(147, 51, 234, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-music-pill:active {
+      transform: scale(0.96);
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Tulips & Hearts in background -->
+  <!-- Floating animated background elements -->
   <div class="floating-container" id="floatingBg"></div>
+
+  <!-- Sticky Mobile-Friendly Music Pill -->
+  <div class="sticky-music-bar">
+    <button class="btn-music-pill" id="musicBtn" onclick="toggleMusic()">
+      <span id="musicIcon">▶️</span> <span id="musicText">Happy Birthday Song</span>
+    </button>
+  </div>
 
   <div class="container">
     
@@ -296,42 +373,51 @@
       <span>🌷</span> Sweet 17 Edition <span>🌷</span>
     </div>
     
-    <h1>Happy Birthday,<br><span class="name-gradient">Rajasree!</span> 🎂</h1>
-    <p class="subtitle">May your 17th year bloom as beautifully as a garden of tulips ✨</p>
+    <h1>Happy Birthday,<br><span >Rajasree!</span> 🎂</h1>
+    <p class="subtitle">17 years of laughter, light, and bringing warmth to everyone around you ✨</p>
 
-    <!-- Controls -->
-    <div class="actions-bar">
-      <button class="btn btn-party" onclick="celebrateParty()">
-        <span>🎉</span> Celebrate Rajasree!
-      </button>
+    <button class="btn-party" onclick="celebrateParty()">
+      <span>🎉</span> Celebrate Rajasree!
+    </button>
 
-      <button class="btn btn-music" id="musicBtn" onclick="toggleMusic()">
-        <span id="musicIcon">▶️</span> <span id="musicText">Play Birthday Song</span>
-      </button>
-    </div>
-
-    <!-- Happy Birthday Instrumental Audio Stream -->
+    <!-- Audio Element (Happy Birthday Instrumental) -->
     <audio id="birthdayAudio" loop preload="auto" src="https://ia800108.us.archive.org/30/items/HappyBirthdayInstrumental/HappyBirthdayInstrumental.mp3"></audio>
-
     <!-- Photo Memories -->
-    <h2 class="gallery-title">Memories With Rajasree 📸</h2>
+    <h2 class="section-title">Memories With Rajasree 📸</h2>
     <div class="gallery-grid">
       <div class="polaroid">
-        <!-- Swap src with Rajasree's photo -->
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600" alt="Rajasree memory 1">
+        <!-- Swap src with Rajasree's real photo -->
+        <img src="img1.jpeg" alt="Rajasree memory 1">
         <p>Always lighting up the room 🌷</p>
       </div>
 
       <div class="polaroid">
-        <!-- Swap src with Rajasree's photo -->
-        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600" alt="Rajasree memory 2">
+        <!-- Swap src with Rajasree's real photo -->
+        <img src="img2.jpeg" alt="Rajasree memory 2">
         <p>Partner in crime forever 🍦</p>
       </div>
 
       <div class="polaroid">
-        <!-- Swap src with Rajasree's photo -->
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600" alt="Rajasree memory 3">
+        <!-- Swap src with Rajasree's real photo -->
+        <img src="img3.jpeg" alt="Rajasree memory 3">
         <p>Sweet 17 & blooming ✨</p>
+      </div>
+    </div>
+
+    <!-- Interactive Sister Mood Check Feature -->
+    <div class="mood-container">
+      <h3 class="mood-title">Rajasree's Mood Radar 📡</h3>
+      <p class="mood-subtitle">Click your current mood for brotherly perks & real talk:</p>
+      
+      <div class="mood-buttons">
+        <button class="mood-btn active" onclick="setMood('snack')">🍟 Hungry</button>
+        <button class="mood-btn" onclick="setMood('stress')">📚 Stressed</button>
+        <button class="mood-btn" onclick="setMood('drama')">👑 Drama Queen</button>
+        <button class="mood-btn" onclick="setMood('sleep')">😴 Sleepy</button>
+      </div>
+
+      <div class="mood-display-box" id="moodDisplay">
+        May your 17th year be as peaceful as you stealing my favorite snacks and pretending you have no clue where they went! 😜
       </div>
     </div>
 
@@ -384,12 +470,13 @@
 
       <h3 class="letter-header">Dearest Rajasree 💕</h3>
       <p class="letter-content">
-        Happy 17th Birthday! 🎉 Watching you grow up into such an intelligent, wonderful, and kind person has been one of the biggest blessings.<br><br>
-        May your 17th year be full of warmth, boundless smiles, good grades, lots of delicious food, and wonderful dreams coming true. Just like tulips bring color and fresh life wherever they bloom, you bring so much joy into all our lives. Keep shining bright!
+        Happy 17th Birthday! 🎉 Watching you grow up into someone so ambitious, smart, and kind has been nothing short of amazing.<br><br>
+        You have that rare gift of lighting up any room just by laughing out loud. As you step into your 17th year, remember that no matter how grown up you get or what challenges come along, you’ll always have your big brother in your corner.<br><br>
+        May your year bloom with good grades, delicious food, exciting new adventures, and smiles as bright as tulips! 🌷
       </p>
       <div class="letter-signature">
         Always in your corner,<br>
-        Your Brother 🌷
+        Your Brother 💖
       </div>
     </div>
 
@@ -424,7 +511,7 @@
         musicIcon.innerText = '⏸️';
         musicText.innerText = 'Pause Song';
       }).catch(err => {
-        console.log("Audio playback waiting for interaction:", err);
+        console.log("Audio waiting for user click:", err);
       });
     }
 
@@ -433,13 +520,36 @@
         birthdayAudio.pause();
         isPlaying = false;
         musicIcon.innerText = '▶️';
-        musicText.innerText = 'Play Birthday Song';
+        musicText.innerText = 'Happy Birthday Song';
       } else {
         startMusic();
       }
     }
 
-    // Background floating elements (Tulips, Hearts, Sparkles)
+    // Interactive Sister Mood Check
+    const moodMessages = {
+      snack: "🍟 May your 17th year be as peaceful as you do something and pretending you have no clue what happend! 😜",
+      stress: "📚 Take a deep breath! You are way smarter than any exam or stress. Plus, you get lifetime free brother tech support & tutoring.",
+      drama: "👑 Official Lifetime Award goes to Rajasree for winning 99% of our arguments using only dramatic facial expressions! 🏆",
+      sleep: "😴 Go get your beauty sleep. All Dreams are waiting for you to cherish! 🍦"
+    };
+
+    function setMood(type) {
+      const display = document.getElementById('moodDisplay');
+      const buttons = document.querySelectorAll('.mood-btn');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      display.style.opacity = '0';
+      setTimeout(() => {
+        display.innerHTML = moodMessages[type];
+        display.style.opacity = '1';
+        shootConfetti();
+      }, 150);
+    }
+
+    // Floating background elements
     const floatingBg = document.getElementById('floatingBg');
     const cuteSymbols = ['🌷', '🌸', '✨', '💖', '🌷', '🎀'];
 
@@ -449,16 +559,16 @@
       el.innerText = cuteSymbols[Math.floor(Math.random() * cuteSymbols.length)];
       el.style.left = Math.random() * 95 + 'vw';
       el.style.animationDuration = Math.random() * 4 + 7 + 's';
-      el.style.fontSize = Math.random() * 12 + 18 + 'px';
+      el.style.fontSize = Math.random() * 10 + 18 + 'px';
       floatingBg.appendChild(el);
 
       setTimeout(() => {
         el.remove();
       }, 10000);
     }
-    setInterval(spawnFloatingItem, 700);
+    setInterval(spawnFloatingItem, 750);
 
-    // Initial confetti burst on window load
+    // Initial confetti burst on load
     window.addEventListener('load', () => {
       setTimeout(shootConfetti, 400);
     });
